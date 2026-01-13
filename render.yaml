@@ -1,0 +1,21 @@
+services:
+  - type: web
+    name: llm_postgres
+    runtime: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app:app
+    envVars:
+      - key: GROQ_API_KEY
+        sync: false
+      - key: DATABASE_URL
+        fromDatabase:
+          name: llm_postgres_4s4n
+          property: connectionString
+      - key: PYTHON_VERSION
+        value: 3.11.0
+
+databases:
+  - name: llm_postgres
+    plan: free
+    databaseName: llm_postgres_4s4n
+    user: llm_user

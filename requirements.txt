@@ -1,0 +1,6 @@
+Flask
+groq
+psycopg2-binary
+python-dotenv
+pytest
+gunicorn
