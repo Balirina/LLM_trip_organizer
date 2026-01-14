@@ -17,11 +17,15 @@ body {
 
 .container {
     max-width: 800px;
-    margin: 0 auto;
+    min-height: auto; /* Altura según contenido */
+    max-height: 90vh; /* Pero máximo 90% de ventana */
+    margin: 2vh auto; /* Margen vertical pequeño */
     background: white;
-    border-radius: 15px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-    overflow: hidden;
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+    overflow-y: auto; /* Scroll solo si es necesario */
+    display: block;
+
 }
 
 .header {

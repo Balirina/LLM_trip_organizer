@@ -15,7 +15,11 @@ logger = logging.getLogger(__name__)
 # Cargar variables de entorno
 load_dotenv()
 
-app = Flask(__name__)
+app = Flask(__name__, 
+    static_folder='static',
+    static_url_path='/static',
+    template_folder='templates'
+)
 
 # Configuración
 GROQ_API_KEY = os.getenv("GROQ_API_KEY")
@@ -90,7 +94,7 @@ def get_system_prompt():
                     2. Usa párrafos cortos y concisos
                     3. Usa negritas para títulos o términos importantes
                     4. Usa viñetas • para listas
-                    5. Separa ideas con saltos de línea
+                    5. Separa ideas con salto de línea
                     6. Sé claro y directo, evita formatos complejos
                     7. Usa tamaño de letra mas grandes para titulos
                     
@@ -207,7 +211,6 @@ if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
     logger.info(f"🚀 Iniciando aplicación en puerto {port}")
     logger.info(f"📊 Modelo: {MODEL_NAME}")
-    logger.info(f"🔗 DB Host: {DB_CONFIG.get('host', 'N/A')}")
     init_db()
     # Verificar conexiones
     if groq_client:
