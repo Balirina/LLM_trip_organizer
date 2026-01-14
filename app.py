@@ -22,15 +22,16 @@ GROQ_API_KEY = os.getenv("GROQ_API_KEY")
 MODEL_NAME = os.getenv("GROQ_MODEL")
 
 
-# Configuración de base de datos AWS RDS
+# Configuración de base de datos postgres
 DATABASE_URL = os.getenv('DATABASE_URL')
-DB_CONFIG = {
+
+'''DB_CONFIG = {
     "host": os.getenv("DB_HOST"),
     "database": os.getenv("DB_NAME"),
     "user": os.getenv("DB_USER"),
     "password": os.getenv("DB_PASSWORD"),
     "port": os.getenv("DB_PORT", 5432)
-}
+}'''
 
 # Inicializar cliente Groq
 try:
@@ -51,17 +52,33 @@ class SimplePromptTemplate:
     
     def format(self, **kwargs):
         return self.template.format(**kwargs)
+    
+# Funcion para convertir DATABASE_URL en config para psycopg2
+def get_db_config():
+    if DATABASE_URL:
+        # Render usa postgres:// pero psycopg2 necesita postgresql://
+        if DATABASE_URL.startswith('postgres://'):
+            DATABASE_URL = DATABASE_URL.replace('postgres://', 'postgresql://', 1)
+        
+        result = urlparse(DATABASE_URL)
+        return {
+            'host': result.hostname,
+            'database': result.path[1:],  # Quita el '/' inicial
+            'user': result.username,
+            'password': result.password,
+            'port': result.port or 5432
+        }
+    
+    # Fallback para desarrollo local (opcional)
+    return {
+        'host': os.getenv("DB_HOST", "localhost"),
+        'database': os.getenv("DB_NAME", "llm_chat"),
+        'user': os.getenv("DB_USER", "postgres"),
+        'password': os.getenv("DB_PASSWORD", ""),
+        'port': os.getenv("DB_PORT", "5432")
+    }
+DB_CONFIG = get_db_config()
 
-# Prompt Template de LangChain
-prompt_template = SimplePromptTemplate(
-    """Eres un asistente AI y te dedicas solo para organizar y planear viajes.
-    Sabes información del transporte, de la gastronomia y de la cultura de las paises que te van a preguntar. 
-    Responde a la siguiente consulta de manera clara, concisa y relevante.
-    
-    Consulta: {query}
-    
-    Respuesta:"""
-)
 
 # Función para conectar a la base de datos
 def get_db_connection():
