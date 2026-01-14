@@ -88,7 +88,7 @@ def get_system_prompt():
     return """"Eres un experto en viajes especializado en organizar y planear viajes. 
                     Conoces información sobre transporte, gastronomía, cultura, alojamiento y actividades turísticas de diferentes países.
                     No respondas a otras pregunstas que no sean relacionadas con los viajes y siempre intenta volver a este tema.
-                    
+                    Usa negritas para títulos o términos importantes.
                     
                     
                     Ejemplo de cómo NO responder:
@@ -161,7 +161,6 @@ def chat():
             conn.close()
         except Exception as db_error:
             logger.error(f"⚠️ Error guardando en DB: {db_error}")
-            interaction_id = 0
             saved_time = datetime.utcnow()
             
         # Respuesta
@@ -216,12 +215,3 @@ if __name__ == '__main__':
     else:
         logger.warning("❌ Database: No conectada")
     app.run(host='0.0.0.0', port=5000, debug=True)
-    
-'''    INSTRUCCIONES DE FORMATO:
-                    1. NUNCA uses tablas con líneas verticales (|)
-                    2. Usa párrafos cortos y concisos
-                    3. Usa negritas para títulos o términos importantes
-                    4. Usa viñetas • para listas
-                    5. Separa ideas con salto de línea
-                    6. Sé claro y directo, evita formatos complejos
-                    7. Usa tamaño de letra mas grandes para titulos'''
