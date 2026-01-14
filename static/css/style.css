@@ -17,21 +17,17 @@ body {
 
 .container {
     max-width: 800px;
-    min-height: auto; /* Altura según contenido */
-    max-height: 90vh; /* Pero máximo 90% de ventana */
-    margin: 2vh auto; /* Margen vertical pequeño */
+    margin: 0 auto;
     background: white;
-    border-radius: 12px;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
-    overflow-y: auto; /* Scroll solo si es necesario */
-    display: block;
-
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    overflow: hidden;
 }
 
 .header {
     background: linear-gradient(135deg, #ed4625ff 0%, #ff632aff 100%);
     color: white;
-    padding: 25px;
+    padding: 10px;
     text-align: center;
 }
 
@@ -76,7 +72,7 @@ body {
 }
 
 .input-container {
-    padding: 20px;
+    padding: 12px;
     background: white;
     border-top: 1px solid #e5e7eb;
     display: flex;
@@ -85,7 +81,7 @@ body {
 
 textarea {
     flex: 1;
-    padding: 15px;
+    padding: 10px;
     border: 2px solid #e5e7eb;
     border-radius: 10px;
     font-size: 1rem;
