@@ -23,6 +23,7 @@ MODEL_NAME = os.getenv("GROQ_MODEL")
 
 
 # Configuración de base de datos AWS RDS
+DATABASE_URL = os.getenv('DATABASE_URL')
 DB_CONFIG = {
     "host": os.getenv("DB_HOST"),
     "database": os.getenv("DB_NAME"),
